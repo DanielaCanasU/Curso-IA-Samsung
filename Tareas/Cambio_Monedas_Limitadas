@@ -1,0 +1,23 @@
+cantidad_monedas = {}
+
+def coin_change(coins, amount):
+    valores_monedas = list(coins.keys())
+    valores_monedas.sort(reverse=True)
+    changes = []
+    largest = 0
+    while amount > 0:
+        if amount < int(valores_monedas[largest]) or coins[valores_monedas[largest]] == 0:
+            largest += 1
+        else:
+            changes.append(valores_monedas[largest])
+            amount -= int(valores_monedas[largest])
+            coins[valores_monedas[largest]] = int(coins[valores_monedas[largest]]) - 1
+    return changes
+
+entrada = input('Ingrese monedas:').split()
+monto = int(input('Ingrese monto:'))
+
+for i in range(0,len(entrada) - 1,2):
+    cantidad_monedas[entrada[i]] = entrada[i + 1]
+changes = coin_change(cantidad_monedas, monto)
+print(changes,len(changes))
